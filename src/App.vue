@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
       <single-recharge-data></single-recharge-data>
       <data-table></data-table>
       <h1>Almost</h1>
