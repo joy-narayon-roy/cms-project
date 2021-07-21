@@ -1,50 +1,48 @@
 <template>
   <div class="container">
-      <dataTable props="somedata"></dataTable>
-    <h4 class="text-center py-3 border-bottom">Hi there</h4>
-    <p class="text-dark">Count - {{count}}</p>
-    <button v-on:click="add" class="btn btn-primary">Add</button>
-    <hr />
-    <table class="table" border="0">
-        <tbody>
-            <tr v-for="data in datas">
-                <td>{{data.name}}</td>
-                <td>{{data.roll}}</td>
-            </tr>
-        </tbody>
-    </table>
+      <single-recharge-data></single-recharge-data>
+      <data-table></data-table>
+      <h1>Almost</h1>
   </div>
 </template>
 
 <script>
     import dataTable from './components/dataTable.vue';
-export default {
+    import SingleRechargeForm from './components/SingleRechargeForm.vue';
     
+    console.log(SingleRechargeForm)
+    
+export default {
   name: 'app',
   components:{
-      dataTable
+      'single-recharge-data':SingleRechargeForm,
+      'data-table':dataTable
   },
   data () {
     return {
-        count:0,
-        datas:[{
-            name:'Joy',
-            roll:1
-        },{
-            name:'Joy',
-            roll:1
-        },{
-            name:'Joy',
-            roll:1
-        }]
+        
     }
   },
   methods:{
-      add:function () {
-          this.count++
-      }
   }
 }
 </script>
 
-<style></style>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Dosis&display=swap');
+
+    *{
+        margin: 0;
+        padding: 0;
+        font-family: 'Dosis', sans-serif;
+        box-sizing: border-box;
+        color: #2c3e50;
+        
+    }
+    body{
+        background: rgb(237,243,255);
+    }
+    h1,h2,h3,h4,h4,h5,h6{
+        font-weight:500;
+    }
+</style>
