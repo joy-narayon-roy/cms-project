@@ -85,72 +85,10 @@
     }
 </style>
 
-<!--style>
-    .data-form_body{
-        height: auto;
-        width: 100%;
-        margin: 10px auto;
-        display: flex;
-        box-sizing: border-box;
-        flex-flow: column;
-    }
-    .btn{
-        display: inline-block;
-        border: none;
-        padding: 0.375rem 0.75rem;
-        border-radius: 5px;
-        border: 1px solid #fff;
-        font-size: 1.1rem;
-        overflow: visible;
-    }
-    .btn:focus{
-        outline: none;
-        background: #fff;
-        border: 0px solid black;
-        box-shadow: rgba(0,123,255,0.25) 0 0 0 0.2rem;
-        outline: 0;
-    }
-    .data-form_body-group{
-        height: auto;
-        width: 100%;
-        margin: 5px auto;
-    }
-    .data-form_body-group label{
-        font-size: 1.2rem;
-        line-height: 1.5;
-        font-weight: 600;
-    }
-    .data-form_body-group input{
-        display: inline-block;
-        width: 100%;
-        padding: 0.375rem 0.75rem;
-        font-size: 1rem;
-        outline: none;
-        border-radius: 0.25rem;
-        border: 1px solid #cfd0d0;
-        word-spacing: 0.98rem;
-        letter-spacing: 3px;
-        line-height: 1.5;
-        background: #fff;
-        margin: 0.25rem;
-        transition-duration: 0.5s;
-        transition-property: all;
-    }
-    .data-form_body-group input:focus{
-        border: 1px solid rgba(0,123,255,0.25);
-        box-shadow: rgba(0,123,255,0.25) 0 0 0 0.25rem;
-        outline: none;
-    }
-    .data-form_body-group .data-form_body-group_feedback{
-        border: 1px solid red;
-        width: 100%;
-        margin: 0px auto;
-    }
-</style-->
-
 <script type="text/javascript" charset="utf-8">
     export default {
         name: 'SingleRechargeForm',
+        
         data() {
             return {
                 count: 0,
@@ -159,7 +97,8 @@
                     phone: '',
                     amount: 0,
                 },
-                show: true
+                show: true,
+                sendUrl:'https://jsonplaceholder.typicode.com/todos/1'
             }
         },
         methods: {
@@ -169,6 +108,14 @@
                     this.show=!this.show;
                 }
                 setTimeout(stopAni.bind(this), 5000);
+                this.submitData()
+            },
+            submitData:function () {
+                this.$http.get(this.sendUrl).then(res=>{
+                    console.log(res)
+                }).catch(err=>{
+                    console.error(err)
+                })
             }
         }
     }
