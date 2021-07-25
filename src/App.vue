@@ -1,26 +1,24 @@
 <template>
   <div>
       <single-recharge-data></single-recharge-data>
-      <data-table></data-table>
-      <h1>Almost</h1>
+      <multiple-recharge-form></multiple-recharge-form>
   </div>
 </template>
 
 <script>
-    import dataTable from './components/dataTable.vue';
     import SingleRechargeForm from './components/SingleRechargeForm.vue';
+    import MultipleRechargeForm from './components/MultipleRechargeForm.vue';
     
-    console.log(SingleRechargeForm)
     
 export default {
   name: 'app',
   components:{
       'single-recharge-data':SingleRechargeForm,
-      'data-table':dataTable
+      'multiple-recharge-form':MultipleRechargeForm
   },
   data () {
     return {
-        
+        dbUrl:'https://vue-app-cf7ad-default-rtdb.firebaseio.com/'
     }
   },
   methods:{
