@@ -218,10 +218,14 @@
                         amount: 0,
                     };
                 }, err=> {
-                    alert('Faild')
                     this.response.status = err.status;
                     this.response.body = err.body;
+                    if(!err.status==0){
                     this.response.show = true;
+                    }else{
+                    this.response.show = false;
+                    alert('Faild');
+                    }
                 })
             },
             dismisRes: function() {
