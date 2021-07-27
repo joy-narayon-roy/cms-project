@@ -80,6 +80,9 @@
         text-align: center;
         font-size: 1.01rem;
     }
+    .data--table_table thead tr th,.data--table_table tbody tr td{
+        padding: 5px 0;
+    }
     .data--table_table thead {
         background: #57B3F1;
         color: #fff;
@@ -92,15 +95,28 @@
         background: #787878;
         color: #fff;
     }
-    .data--table_table tfoot {
+    .data--table_table tfoot{
         background: #148395;
         color: #fff;
+    }
+    .data--table_table tfoot tr td{
+        padding: 5px 0;
+        font-weight: bold;
     }
 </style>
 <script>
     export default {
         name: 'Data Form',
-        props: {},
+        props: {
+            tableName:{
+                type:String,
+                required:true
+            }
+            
+        },
+        created(){
+            console.log(this.props)
+        },
         data() {},
         methods: {}
     }
