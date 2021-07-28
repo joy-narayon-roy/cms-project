@@ -2,7 +2,7 @@
     <section class="wrap">
         <div class="py-3 px-2 data--table">
             <h2 class="data--table_header">{{tableTitle}} Table</h2>
-            <table class="data--table_table" border="0">
+            <table v-if="tableDatas" class="data--table_table" border="0">
                 <thead>
                     <tr>
                         <th>Date</th>
@@ -12,19 +12,26 @@
                 </thead>
                 <tbody>
                     <tr v-for="item in tableDatas" v-bind:data-id="item._id">
-                        <td>{{item.date}}</td>
-                        <td>{{item.phone}}</td>
-                        <td>{{item.amount}}</td>
+                        <td v-on:click="aboutThisRow" v-bind:data-id="item._id">{{item.date}}</td>
+                        <td v-on:click="aboutThisRow" v-bind:data-id="item._id">{{item.phone}}</td>
+                        <td v-on:click="aboutThisRow" v-bind:data-id="item._id">{{item.amount}}</td>
                     </tr>
+                    
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td>Total:{{tableDatasLength}}</td>
+                        <td>Total:{{tableDatasLength()}}</td>
                         <td></td>
-                        <td>5000tk</td>
+                        <td>{{totalAmount()}} tk</td>
                     </tr>
                 </tfoot>
             </table>
+            <div v-else class="border rounded py-3 px-2 data--table_Error">
+                <h4 class="alert alert-danger text-center">Data Not Found!</h4>
+                <p class="text-center text-muted">
+                    Please insert Some Data!
+                </p>
+            </div>
         </div>
     </section>
 </template>
@@ -55,7 +62,7 @@
         text-align: center;
         font-size: 1.01rem;
     }
-    .data--table_table thead tr th,.data--table_table tbody tr td{
+    .data--table_table thead tr th,.data--table_table tbody tr td {
         padding: 5px 0;
     }
     .data--table_table thead {
@@ -70,11 +77,11 @@
         background: #787878;
         color: #fff;
     }
-    .data--table_table tfoot{
+    .data--table_table tfoot {
         background: #148395;
         color: #fff;
     }
-    .data--table_table tfoot tr td{
+    .data--table_table tfoot tr td {
         padding: 5px 0;
         font-weight: bold;
     }
@@ -83,41 +90,46 @@
     export default {
         name: 'Data_Table',
         props: {
-        	tableTitle:{
-        		type:String,
-        		default:'Data'
-        	},
-        	tableDataUrl:{
-        		type:String,
-        		required: true
-        	}
-        },
-        created(){
-        	fetch(this.tableDataUrl).then(res=>{
-        		return res.json()
-        		}).then(data=>{
-        			console.log(data);
-        			this.tableDatasLength=datas.length;
-        			this.tableDatas=data;
-        		}).catch(err=>{
-        			alert('Failed')
-        		this.tableDatas=null;
-        	})
-        	
-        	/*this.$http(`${this.tableDataUrl}`).then(res=>{
-        		console.log('Res');
-        		console.log(res);
-        	},err=>{
-        		console.log('Error');
-        		console.log(err);
-        	});*/
-        },
-        data() {
-        	return {
-        		tableDatasLength:0,
-        		tableDatas:[]
-        	}
-        },
-        methods: {}
-    }
+            tableTitle: {
+                type: String,
+                default: 'Data'
+                },
+            tableDataUrl: {
+                    type: String,
+                    required: true
+                }
+            },
+            created() {
+                fetch(this.tableDataUrl).then(res=> {
+                    return res.json()
+                }).then(data=> {
+                    this.tableDatas = data;
+                }).catch(err=> {
+                    alert('Failed')
+                    console.log(err)
+                    this.tableDatas = false;
+                })
+            },
+            data() {
+                return {
+                    tableDatasLength: function() {
+                        return this.tableDatas.length;
+                    },
+                    totalAmount: function() {
+                        if (this.tableDatas.length === 0) {
+                            return 0;
+                        }
+                        return this.tableDatas.reduce((c, l)=> {
+                            return ((c.amount?c.amount: c)+l.amount)
+                        });
+                    },
+                    tableDatas: []
+                }
+            },
+            methods: {
+                aboutThisRow:function (e) {
+                    alert(e.target.dataset.id);
+                }
+            }
+        }
     </script>
