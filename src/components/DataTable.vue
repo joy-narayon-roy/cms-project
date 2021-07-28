@@ -1,7 +1,7 @@
 <template>
     <section class="wrap">
         <div class="py-3 px-2 data--table">
-            <h2 class="data--table_header">Data Table</h2>
+            <h2 class="data--table_header">{{tableTitle}} Table</h2>
             <table class="data--table_table" border="0">
                 <thead>
                     <tr>
@@ -11,40 +11,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>26/06/2021</td>
-                        <td>01533599629</td>
-                        <td>10</td>
-                    </tr>
-                    <tr>
-                        <td>26/06/2021</td>
-                        <td>01533599629</td>
-                        <td>10</td>
-                    </tr>
-                    <tr>
-                        <td>26/06/2021</td>
-                        <td>01533599629</td>
-                        <td>10</td>
-                    </tr>
-                    <tr>
-                        <td>26/06/2021</td>
-                        <td>01533599629</td>
-                        <td>10</td>
-                    </tr>
-                    <tr>
-                        <td>26/06/2021</td>
-                        <td>01533599629</td>
-                        <td>10</td>
-                    </tr>
-                    <tr>
-                        <td>26/06/2021</td>
-                        <td>01533599629</td>
-                        <td>10</td>
+                    <tr v-for="item in tableDatas" v-bind:data-id="item._id">
+                        <td>{{item.date}}</td>
+                        <td>{{item.phone}}</td>
+                        <td>{{item.amount}}</td>
                     </tr>
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td>Total:100</td>
+                        <td>Total:{{tableDatasLength}}</td>
                         <td></td>
                         <td>5000tk</td>
                     </tr>
@@ -106,18 +81,43 @@
 </style>
 <script>
     export default {
-        name: 'Data Form',
+        name: 'Data_Table',
         props: {
-            tableName:{
-                type:String,
-                required:true
-            }
-            
+        	tableTitle:{
+        		type:String,
+        		default:'Data'
+        	},
+        	tableDataUrl:{
+        		type:String,
+        		required: true
+        	}
         },
         created(){
-            console.log(this.props)
+        	fetch(this.tableDataUrl).then(res=>{
+        		return res.json()
+        		}).then(data=>{
+        			console.log(data);
+        			this.tableDatasLength=datas.length;
+        			this.tableDatas=data;
+        		}).catch(err=>{
+        			alert('Failed')
+        		this.tableDatas=null;
+        	})
+        	
+        	/*this.$http(`${this.tableDataUrl}`).then(res=>{
+        		console.log('Res');
+        		console.log(res);
+        	},err=>{
+        		console.log('Error');
+        		console.log(err);
+        	});*/
         },
-        data() {},
+        data() {
+        	return {
+        		tableDatasLength:0,
+        		tableDatas:[]
+        	}
+        },
         methods: {}
     }
     </script>

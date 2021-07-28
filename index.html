@@ -13,6 +13,17 @@
     <title>Company Management System</title>
 </head>
 <body>
+	<script type="text/javascript" charset="utf-8">
+	function cl() {
+		var script = document.createElement('script');
+		script.src="//cdn.jsdelivr.net/npm/eruda";
+		document.body.appendChild(script);
+		script.onload = function (){
+			eruda.init()
+		}
+	};
+	cl();
+	</script>
     <div id="app"></div>
     <script src="/dist/build.js"></script>
 </body>

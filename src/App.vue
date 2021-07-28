@@ -1,7 +1,8 @@
 <template>
     <div>
+    	<play-ground-1 v-show="false" componame="Joy Roy"></play-ground-1>
         <single-recharge-data></single-recharge-data>
-        <data-table tableName="Recharge" tableDataUrl="/find"></data-table>
+        <data-table tableTitle="Recharge" tableDataUrl="https://njo-cms.herokuapp.com/api/ra/recharge"></data-table>
     </div>
 </template>
 
@@ -9,6 +10,7 @@
     import SingleRechargeForm from './components/SingleRechargeForm.vue';
     import MultipleRechargeForm from './components/MultipleRechargeForm.vue';
     import DataTable from './components/DataTable.vue';
+    import PlayGround1 from './pg/pg1.vue'
 
 
     export default {
@@ -16,7 +18,8 @@
         components: {
             'single-recharge-data': SingleRechargeForm,
             'multiple-recharge-form': MultipleRechargeForm,
-            'data-table': DataTable
+            'data-table': DataTable,
+            'play-ground-1':PlayGround1
         },
         data () {
             return {
