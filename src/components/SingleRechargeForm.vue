@@ -155,7 +155,9 @@
 	}
 </style>
 
-<script type="text/javascript" charset="utf-8">
+<script>
+import {submittedReloadEvent} from '../main.js'
+
 	export default {
 		name: 'SingleRechargeForm',
 		data() {
@@ -219,6 +221,7 @@
 						phone: '',
 						amount: 0,
 					};
+					submittedReloadEvent.$emit('refreshData','None')
 				}, err=> {
 					alert('Faild');
 					this.response.status = err.status;

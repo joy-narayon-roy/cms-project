@@ -87,6 +87,7 @@
     }
 </style>
 <script>
+import {submittedReloadEvent} from '../main.js';
     export default {
         name: 'Data_Table',
         props: {
@@ -100,6 +101,14 @@
                 }
             },
             created() {
+          submittedReloadEvent.$on('refreshData',(arg)=>{
+          	this.$http.get(this.tableDataUrl).then(res=>{
+          		this.tableDatas = res.body;
+          	},err=>{
+          		console.log(err);
+          	})
+          })
+            	
                 fetch(this.tableDataUrl).then(res=> {
                     return res.json()
                 }).then(data=> {
@@ -118,6 +127,8 @@
                     totalAmount: function() {
                         if (this.tableDatas.length === 0) {
                             return 0;
+                        }else if(this.tableDatas.length===1){
+                        	return this.tableDatas[0].amount;
                         }
                         return this.tableDatas.reduce((c, l)=> {
                             return ((c.amount?c.amount: c)+l.amount)
