@@ -12,7 +12,7 @@
                 </thead>
                 <tbody>
                     <tr v-for="item in tableDatas" v-bind:data-id="item._id">
-                        <td v-on:click="aboutThisRow" v-bind:data-id="item._id">{{item.date}}</td>
+                        <td v-on:click="aboutThisRow" v-bind:data-id="item._id" >{{item.date}}</td>
                         <td v-on:click="aboutThisRow" v-bind:data-id="item._id">{{item.phone}}</td>
                         <td v-on:click="aboutThisRow" v-bind:data-id="item._id">{{item.amount}}</td>
                     </tr>
@@ -89,7 +89,7 @@
 <script>
 import {submittedReloadEvent} from '../main.js';
     export default {
-        name: 'Data_Table',
+        name: 'DataTable',
         props: {
             tableTitle: {
                 type: String,

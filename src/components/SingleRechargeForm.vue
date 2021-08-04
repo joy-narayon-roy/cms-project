@@ -1,7 +1,7 @@
 <template>
 	<section class="wrap">
 		<form v-show="!response.show" v-on:submit.prevent="submitForm" class="py-3 px-2 data--form">
-			<h2 class="data-form_header">Single Recharge Form</h2>
+			<h2 class="data-form_header">Single {{formTitle}} Form</h2>
 			<div class="container">
 				<div class="row">
 					<div class="my-1 col-sm-12 col-md-4">
@@ -12,7 +12,7 @@
 						<label for="phone">Phone :-</label>
 						<input class="form-control" type="tel" list="phoneList1" required="true" v-model:value="rechargeData.phone" v-on:input="defaultBehave" minlength="11" />
 						<datalist id="phoneList1">
-							<option v-for="item in dataList.numbers" v-bind:value="item"></option>
+							<option v-for="item in rechargeNumberDataList.numbers" v-bind:value="item"></option>
 						</datalist>
 					</div>
 					<div class="my-1 col-sm-12 col-md-4">
@@ -23,7 +23,7 @@
 			</div>
 
 			<div class="container my-3">
-				<button v-if="loading" class="btn btn-success disabled" type="submit">Loading...</button>
+				<button v-if="loading" class="btn btn-njo-success disabled" type="submit">Loading...</button>
 				<button v-else class="btn btn-success" type="submit">Enter</button>
 			</div>
 
@@ -57,9 +57,10 @@
 					<li>Id : {{response.body?response.body._id:'Not set!'}}</li>
 				</ul>
 			</div>
-			<div class="data--preview_footer my-3 px-2 d-flex justify-content-between">
-				<a v-bind:href="response.body?response.body._id:null" class="btn btn-warning">Edit</a>
-				<button type="button" v-on:click="dismisRes" class="btn btn-success">Close</button>
+			<div class="data--preview_footer my-3 px-2">
+				<button v-if="response.status<400 && response.status!==0" class="btn btn-warning float-left" v-on:click='editData'>Edit</button>
+				<button type="button" v-on:click="dismisRes" class="btn btn-success float-right">Close</button>
+				<div class="clear"></div>
 			</div>
 		</div>
 	</section>
@@ -160,23 +161,26 @@ import {submittedReloadEvent} from '../main.js'
 
 	export default {
 		name: 'SingleRechargeForm',
+		props:{
+			formTitle:{
+				type:String,
+				required:true
+			},
+			rechargeNumberDataList:{
+				type:Object,
+				required:true
+			},
+			submitUrl:{
+				type:String,
+				required:true
+			}
+		},
 		data() {
 			return {
-				count: 0,
-				type: 'password',
 				rechargeData: {
 					date: '',
 					phone: '',
 					amount: 0,
-				},
-				dataList: {
-					numbers: ['01533599629',
-						'01533581456',
-						'01626234794',
-						'01745496839',
-						'01765055191',
-						'01882390643',
-						'01936033735']
 				},
 				response: {
 					show: false,
@@ -184,59 +188,64 @@ import {submittedReloadEvent} from '../main.js'
 					body: null
 				},
 				loading: false,
-				baseUrl: ['https://njo-cms.herokuapp.com/api/ra/recharge/new',
-					'http://localhost:8081/api/ra/recharge/new']
 			}
 		},
-		methods: {
-			defaultBehave: function() {
-				if (this.rechargeData.phone === "01745496839") {
-					this.rechargeData.amount = 10;
-				} else {
-					this.rechargeData.amount = 0;
-				}
-			},
-			submitForm: function( {
-				target: form
-			}) {
-				if (!form.checkValidity()) {
-					return false;
-				}
-				this.loading = true;
-				this.submitData();
-			},
-			submitData: function () {
-				let headers = {
-					datatype: 'single'
-				}
-				this.$http.post(this.baseUrl[0], this.rechargeData, {
-					headers
-				}).then(res=> {
-					this.response.body = res.body;
-					this.response.status = res.status;
-					this.response.show = true;
-					this.loading = false;
-					this.rechargeData = {
-						date: '',
-						phone: '',
-						amount: 0,
-					};
-					submittedReloadEvent.$emit('refreshData','None')
-				}, err=> {
-					alert('Faild');
-					this.response.status = err.status;
-					this.response.body = err.body;
-					this.response.show = true;
-					this.loading = false;
-				})
-			},
-			dismisRes: function() {
-				this.response = {
-					status: null,
-					body: null,
-					show: false
-				}
-			}
+methods: {
+	defaultBehave: function() {
+		if (this.rechargeData.phone === "01745496839") {
+			this.rechargeData.amount = 10;
+		} else {
+			this.rechargeData.amount = 0;
 		}
+	},
+	submitForm: function( {
+		target: form
+	}) {
+		if (!form.checkValidity()) {
+			return false;
+		}
+		this.loading = true;
+		this.submitData();
+	},
+	submitData: function () {
+		let headers = {
+			datatype: 'single'
+		}
+		this.$http.post(this.submitUrl, this.rechargeData, {
+			headers
+		}).then(res=> {
+			this.response.body = res.body;
+			this.response.status = res.status;
+			this.response.show = true;
+			this.loading = false;
+			this.rechargeData = {
+				date: '',
+				phone: '',
+				amount: 0,
+			};
+			submittedReloadEvent.$emit('refreshData','None')
+		}, err=> {
+			alert('Faild');
+			this.response.status = err.status;
+			this.response.body = err.body;
+			this.response.show = true;
+			this.loading = false;
+		})
+	},
+	dismisRes: function() {
+		this.response = {
+			status: null,
+			body: null,
+			show: false
+		}
+	},
+	editData:function(){
+		let dataId = this.response.body._id;
+		let dataName = this.formTitle.toLowerCase();
+		let aTag = document.createElement('a');
+		aTag.setAttribute('href',`/${dataName}/${dataId}`);
+		aTag.click()
+	}
+}
 	}
 	</script>

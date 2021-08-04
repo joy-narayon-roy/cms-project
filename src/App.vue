@@ -1,7 +1,9 @@
 <template>
     <div>
-    	<play-ground-1 v-show="false" componame="Joy Roy"></play-ground-1>
-        <single-recharge-data></single-recharge-data>
+    	<multiple-recharge-form
+    	formTitle="Recharge"
+    	></multiple-recharge-form>
+        <single-recharge-data formTitle="Recharge" v-bind:rechargeNumberDataList="dataList" submitUrl="https://njo-cms.herokuapp.com/api/ra/recharge/new"></single-recharge-data>
         <data-table tableTitle="Recharge" tableDataUrl="https://njo-cms.herokuapp.com/api/ra/recharge"></data-table>
     </div>
 </template>
@@ -10,7 +12,7 @@
     import SingleRechargeForm from './components/SingleRechargeForm.vue';
     import MultipleRechargeForm from './components/MultipleRechargeForm.vue';
     import DataTable from './components/DataTable.vue';
-    import PlayGround1 from './pg/pg1.vue'
+    //import PlayGround1 from './pg/pg1.vue'
 
 
     export default {
@@ -19,11 +21,19 @@
             'single-recharge-data': SingleRechargeForm,
             'multiple-recharge-form': MultipleRechargeForm,
             'data-table': DataTable,
-            'play-ground-1':PlayGround1
         },
         data () {
             return {
-                dbUrl: 'https://vue-app-cf7ad-default-rtdb.firebaseio.com/'
+                dbUrl: 'https://vue-app-cf7ad-default-rtdb.firebaseio.com/',
+				dataList: {
+					numbers: ['01533599629',
+						'01533581456',
+						'01626234794',
+						'01745496839',
+						'01765055191',
+						'01882390643',
+						'01936033735']
+				},
             }
         },
         methods: {}
