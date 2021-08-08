@@ -1,18 +1,30 @@
-<template>
+<!--template>
     <div>
+    
     	<multiple-recharge-form
     	formTitle="Recharge"
-    	></multiple-recharge-form>
-        <single-recharge-data formTitle="Recharge" v-bind:rechargeNumberDataList="dataList" submitUrl="https://njo-cms.herokuapp.com/api/ra/recharge/new"></single-recharge-data>
+        submitUrl="https://njo-cms.herokuapp.com/api/ra/recharge/new"
+        v-bind:dataList="dataList"
+        >
+    	</multiple-recharge-form>
+    	
+        <single-recharge-data
+        formTitle="Recharge" 
+        v-bind:rechargeNumberDataList="dataList" 
+        submitUrl="https://njo-cms.herokuapp.com/api/ra/recharge/new"></single-recharge-data>
+        
         <data-table tableTitle="Recharge" tableDataUrl="https://njo-cms.herokuapp.com/api/ra/recharge"></data-table>
     </div>
+</template-->
+<template>
+	<div class="">
+		<router-view></router-view>
+	</div>
 </template>
-
 <script>
     import SingleRechargeForm from './components/SingleRechargeForm.vue';
     import MultipleRechargeForm from './components/MultipleRechargeForm.vue';
     import DataTable from './components/DataTable.vue';
-    //import PlayGround1 from './pg/pg1.vue'
 
 
     export default {

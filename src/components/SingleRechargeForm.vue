@@ -41,7 +41,7 @@
 				<div class="clear"></div>
 			</div>
 			<div class="data--preview_head">
-				<div v-if="response.status>=200&&response.status<400" class="alert alert-success">
+				<div v-if="response.status>=200 && response.status<400" class="alert alert-success">
 					Successfully Saved!
 				</div>
 				<div v-else-if="response.status>=400" class="alert alert-danger">
@@ -65,7 +65,7 @@
 		</div>
 	</section>
 </template>
-<style>
+<style >
 	.clear {
 		clear: both;
 	}
