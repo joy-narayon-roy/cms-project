@@ -3,7 +3,9 @@
 		<single-recharge-data
 			formTitle="Recharge"
 			v-bind:rechargeNumberDataList="dataList"
-			submitUrl="https://njo-cms.herokuapp.com/api/ra/recharge/new"></single-recharge-data>
+			submitUrl="https://njo-cms.herokuapp.com/api/ra/recharge/new">
+			
+		</single-recharge-data>
         <data-table tableTitle="Recharge" tableDataUrl="https://njo-cms.herokuapp.com/api/ra/recharge"></data-table>
 
 	</div>
