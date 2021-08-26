@@ -4,4 +4,7 @@ import cashin from './pages/Cashin.vue';
 export default [{
     path:'/',
     component:recharge
-}]
+},{
+	path:'/cashin',
+	component:cashin
+}];

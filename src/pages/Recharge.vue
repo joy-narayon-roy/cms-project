@@ -6,18 +6,26 @@
 			submitUrl="https://njo-cms.herokuapp.com/api/ra/recharge/new">
 			
 		</single-recharge-data>
+		<multiple-recharge-data 
+		formTitle="Recharge" 
+		submitUrl="https://njo-cms.herokuapp.com/api/ra/recharge/new" 
+		v-bind:dataList="dataList">
+			
+		</multiple-recharge-data>
         <data-table tableTitle="Recharge" tableDataUrl="https://njo-cms.herokuapp.com/api/ra/recharge"></data-table>
 
 	</div>
 </template>
 <script>
 	import SingleRechargeForm from '../components/SingleRechargeForm.vue';
+    import MultipleRechargeForm from '../components/MultipleRechargeForm.vue';
     import DataTable from '../components/DataTable.vue';
 	
 	export default {
 		name: "Recharge",
 		components: {
 			'single-recharge-data': SingleRechargeForm,
+			'multiple-recharge-data':MultipleRechargeForm,
             'data-table': DataTable
 		},
 		data() {

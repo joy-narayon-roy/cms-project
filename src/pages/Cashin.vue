@@ -1,5 +1,6 @@
 <template>
 	<div>
+
 		<single-cashin-form formTitle="Cashin"
 			v-bind:rechargeNumberDataList="dataList"
 			submitUrl="https://njo-cms.herokuapp.com/api/ra/cashin/new">
@@ -16,11 +17,11 @@
 <script>
 	import SingleCashinForm from '../components/SingleRechargeForm.vue';
     import DataTable from '../components/DataTable.vue';
-	
+    
 	export default {
 		name: "Cashin",
 		components: {
-			'single-cashin-form': SingleRechargeForm,
+			'single-cashin-form': SingleCashinForm,
             'data-table': DataTable
 		},
 		data() {
