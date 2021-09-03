@@ -2,14 +2,9 @@
 	<nav class="nav">
 		<div class="nav--header">
 			<h3 class="nav--header_brand">N.J.O</h3>
-			<button class="btn btn-outline-primary"><i class="fa fa-bars"></i></button>
+			<button v-on:click="showLink=!showLink" class="btn btn-outline-primary"><i class="fa fa-bars"></i></button>
 		</div>
-		<ul class="nav--ul">
-			<li class="nav--ul_li">
-				<router-link exact to="/">
-					Home
-				</router-link>
-			</li>
+		<ul v-show="showLink" class="nav--ul">
 			<li class="nav--ul_li">
 				<router-link exact to="/recharge">
 					Recharge
@@ -64,14 +59,24 @@
 	text-decoration: none;
 	padding: 0.25rem 0.5rem;
 	font-size: 1.2rem;
-	background: #dcfefd;
-	color: #000;
+}
+.nav--ul_li a:not(.router-link-active){
+    color: #000;
+    background: #83e2fa;
 }
 
-.router-link-active {
-	color: green;
+a.router-link-active{
+    background: #fff;
+    background: #7effc5;
 }
 </style>
 <script>
-
+export default{
+    name:'nav',
+    data(){
+        return {
+            showLink:false
+        }
+    }
+}
 </script>
