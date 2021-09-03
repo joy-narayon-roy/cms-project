@@ -162,9 +162,10 @@
 			methods: {
 				aboutThisRow: function (e) {
 					let url = new URL(location. origin+'/details');
-					console.log(url);
+					url.searchParams.append('type',this.tableTitle);
+					url.searchParams.append('id',e.target.dataset.id);
 					let link = document.createElement('a');
-					link.href=`/details/${e.target.dataset.id}`;
+					link.href=url.href;
 					link.click();
 				}
 			}
