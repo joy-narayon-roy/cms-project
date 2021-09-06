@@ -239,13 +239,14 @@ methods: {
 			show: false
 		}
 	},
-	editData:function(){
-		let dataId = this.response.body._id;
-		let dataName = this.formTitle.toLowerCase();
-		let aTag = document.createElement('a');
-		aTag.setAttribute('href',`/${dataName}/${dataId}`);
-		aTag.click()
-	}
+	editData: function (e) {
+					let url = new URL(location. origin+'/details');
+					url.searchParams.append('type',this.formTitle);
+					url.searchParams.append('id',this.response.body._id);
+					let link = document.createElement('a');
+					link.href=url.href;
+					link.click();
+				}
 }
 	}
 	</script>
