@@ -11,7 +11,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr v-for="item in tableDatas" v-bind:data-id="item._id" v-today="item">
+					<tr v-for="(item, index) in tableDatas" :key="index" v-bind:data-id="item._id" v-today="item">
 						<td v-on:click="aboutThisRow" v-bind:data-id="item._id">{{item.date}}</td>
 						<td v-on:click="aboutThisRow" v-bind:data-id="item._id">{{item.phone}}</td>
 						<td v-on:click="aboutThisRow" v-bind:data-id="item._id">{{item.amount}}</td>
@@ -134,6 +134,7 @@
 					return res.json()
 				}).then(data=> {
 					this.tableDatas = data;
+
 				}).catch(err=> {
 					alert('Failed')
 					console.log(err)
